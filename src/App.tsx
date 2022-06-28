@@ -26,29 +26,31 @@ function App() {
   }, []);
   return (
     <div className="App">
-      <Header></Header>
-      <Recent></Recent>
-      <div>
-        <span
-          onClick={() => {
-            setCurrentTab("movie");
-          }}
-        >
-          Movies
-        </span>
-        <span
-          onClick={() => {
-            setCurrentTab("series");
-          }}
-        >
-          Series
-        </span>
+      <div className="container">
+        <Header></Header>
+        <Recent></Recent>
+        <div>
+          <span
+            onClick={() => {
+              setCurrentTab("movie");
+            }}
+          >
+            Movies
+          </span>
+          <span
+            onClick={() => {
+              setCurrentTab("series");
+            }}
+          >
+            Series
+          </span>
+        </div>
+        {currentTab === "movie" ? (
+          <Movies Movies={data}></Movies>
+        ) : (
+          <Series Series={data}></Series>
+        )}
       </div>
-      {currentTab === "movie" ? (
-        <Movies Movies={data}></Movies>
-      ) : (
-        <Series Series={data}></Series>
-      )}
     </div>
   );
 }

@@ -1,7 +1,7 @@
 import "./App.css";
 
 function Recent() {
-  return <div className="App">Recent</div>;
+  return <div className="">Recent</div>;
 }
 
 export default Recent;
