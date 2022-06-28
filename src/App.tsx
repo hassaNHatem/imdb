@@ -1,24 +1,41 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { useEffect, useState } from "react";
+import "./App.css";
+import Header from "./Header";
+import Movies from "./Movies";
+import Recent from "./Recent";
+import Series from "./Series";
 
 function App() {
+  const [currentTab, setCurrentTab] = useState("movie");
+  const [data, getData] = useState([]);
+  const [searchTerm, setSearchTerm] = useState<String>();
+  const fetchData = async (searchword: string) => {};
+  useEffect(() => {});
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+      <Header></Header>
+      <Recent></Recent>
+      <div>
+        <span
+          onClick={() => {
+            setCurrentTab("movie");
+          }}
         >
-          Learn React
-        </a>
-      </header>
+          Movies
+        </span>
+        <span
+          onClick={() => {
+            setCurrentTab("series");
+          }}
+        >
+          Series
+        </span>
+      </div>
+      {currentTab === "movie" ? (
+        <Movies Movies={data}></Movies>
+      ) : (
+        <Series Series={data}></Series>
+      )}
     </div>
   );
 }
