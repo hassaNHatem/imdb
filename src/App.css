@@ -50,3 +50,37 @@
  
   color: #9A9A9A;
 }
+/* recently viewd*/
+.recent{
+  margin-top: 2%;
+  transition: ease-in-out 0.5s;
+  
+}
+.recent .recent-header{
+  display: flex;
+  align-items: center;
+}
+.recent-header .arrow{
+  font-size: 36px;
+  margin-left: 2%;
+  transform: rotate(-90deg);
+  -webkit-transform: rotate(-90deg);
+  transition: ease-in-out 0.5s;
+}
+.recent-header .reverse-arrow{
+  font-size: 36px;
+  margin-left: 2%;
+  transform: rotate(90deg);
+  -webkit-transform: rotate(90deg);
+  transition: ease-in-out 0.5s;
+}
+.recent-header h2{
+  font-size: 36px;
+  font-family: 'roboto';
+  color: #FFFFFF;
+  font-weight: 700;
+}
+.recent .slider{
+  transition: ease-in-out 0.5s;
+  height: 400px;
+}
