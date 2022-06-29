@@ -23,14 +23,16 @@ function App() {
 
   useEffect(() => {
     fetchData(searchTerm);
-  }, []);
+  }, [currentTab, searchTerm]);
+  console.log(data);
   return (
     <div className="App">
       <div className="container">
         <Header></Header>
         <Recent></Recent>
-        <div>
+        <div className="switching-tabs">
           <span
+            className={currentTab === "movie" ? "active" : ""}
             onClick={() => {
               setCurrentTab("movie");
             }}
@@ -38,6 +40,7 @@ function App() {
             Movies
           </span>
           <span
+            className={currentTab === "series" ? "active" : ""}
             onClick={() => {
               setCurrentTab("series");
             }}
@@ -45,11 +48,8 @@ function App() {
             Series
           </span>
         </div>
-        {currentTab === "movie" ? (
-          <Movies Movies={data}></Movies>
-        ) : (
-          <Series Series={data}></Series>
-        )}
+
+        <Movies Movies={data}></Movies>
       </div>
     </div>
   );

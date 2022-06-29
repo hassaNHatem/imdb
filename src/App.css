@@ -6,7 +6,7 @@
 .App {
   background-color: black;
   color: white;
-  height: 100vh;
+ 
 }
 .App .container{
   width: 80%;
@@ -82,5 +82,28 @@
 }
 .recent .slider{
   transition: ease-in-out 0.5s;
-  height: 400px;
+  height: 200px;
+}
+/*switching tabs*/
+.switching-tabs{
+  margin-bottom: 2%;
+}
+.switching-tabs span{
+  font-family: 'Roboto';
+  margin-right: 5%;
+  font-size: 32px;
+}
+.switching-tabs span:hover{
+  cursor: pointer;
+}
+.switching-tabs .active{
+  border-bottom: 4px solid #FFD600;
+}
+/*movies*/
+.Movies {
+  margin-top: 2% !important;
+    display: grid;
+    grid-template-columns: auto auto auto auto;
+    column-gap: 50px;
+    
 }
