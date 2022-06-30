@@ -4,7 +4,6 @@ import "./App.css";
 import Header from "./Header";
 import Movies from "./Movies";
 import Recent from "./Recent";
-import Series from "./Series";
 
 function App() {
   const [currentTab, setCurrentTab] = useState("movie");
@@ -12,6 +11,7 @@ function App() {
   const [loading, setLoading] = useState(false);
   const [searchTerm, setSearchTerm] = useState<string>("avengers");
   const [page, setPage] = useState(1);
+  const [recent, setRecent] = useState<Array<any>>([]);
   const APIKEY = "5b9bd435";
   const fetchData = async (searchword: string, page: number) => {
     setLoading(true);
@@ -24,11 +24,31 @@ function App() {
         setLoading(false);
       });
   };
-
   useEffect(() => {
     fetchData(searchTerm, page);
   }, [currentTab, searchTerm]);
-  console.log(data);
+
+  const setRec = (movie: any) => {
+    const newRecent: Array<any> = [movie];
+    setRecent(newRecent);
+    let local = localStorage.getItem("recent-views");
+    let localConverted = [];
+    if (local !== null) {
+      localConverted = JSON.parse(local);
+    }
+    let localData = [...localConverted, ...newRecent];
+    const uniqueArray = localData.filter((value, index) => {
+      const _value = JSON.stringify(value);
+      return (
+        index ===
+        localData.findIndex((obj) => {
+          return JSON.stringify(obj) === _value;
+        })
+      );
+    });
+    localStorage.setItem("recent-views", JSON.stringify(uniqueArray));
+  };
+
   return (
     <div className="App">
       <div className="container">
@@ -58,7 +78,7 @@ function App() {
         ) : data === undefined ? (
           <h1>no Data Found!</h1>
         ) : (
-          <Movies Movies={data}></Movies>
+          <Movies setRecent={setRec} Movies={data}></Movies>
         )}
       </div>
     </div>
