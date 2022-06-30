@@ -6,6 +6,7 @@
 .App {
   background-color: black;
   color: white;
+  min-height: 100vh;
  
 }
 .App .container{
@@ -101,6 +102,8 @@
 }
 /*movies*/
 .Movies {
+  min-height: 600px;
+  background-color: black;
   margin-top: 2% !important;
     display: grid;
     grid-template-columns: auto auto auto auto;

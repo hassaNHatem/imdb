@@ -9,26 +9,30 @@ import Series from "./Series";
 function App() {
   const [currentTab, setCurrentTab] = useState("movie");
   const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(false);
   const [searchTerm, setSearchTerm] = useState<string>("avengers");
+  const [page, setPage] = useState(1);
   const APIKEY = "5b9bd435";
-  const fetchData = async (searchword: string) => {
+  const fetchData = async (searchword: string, page: number) => {
+    setLoading(true);
     axios
       .get(
-        `https://www.omdbapi.com/?s=${searchword}&page=1&apiKey=${APIKEY}&type=${currentTab}`
+        `https://www.omdbapi.com/?s=${searchword}&page=${page}&apiKey=${APIKEY}&type=${currentTab}`
       )
       .then((res) => {
         setData(res.data.Search);
+        setLoading(false);
       });
   };
 
   useEffect(() => {
-    fetchData(searchTerm);
+    fetchData(searchTerm, page);
   }, [currentTab, searchTerm]);
   console.log(data);
   return (
     <div className="App">
       <div className="container">
-        <Header></Header>
+        <Header setSearchTerm={setSearchTerm}></Header>
         <Recent></Recent>
         <div className="switching-tabs">
           <span
@@ -49,7 +53,13 @@ function App() {
           </span>
         </div>
 
-        <Movies Movies={data}></Movies>
+        {loading ? (
+          <h1>Loading your movies...</h1>
+        ) : data === undefined ? (
+          <h1>no Data Found!</h1>
+        ) : (
+          <Movies Movies={data}></Movies>
+        )}
       </div>
     </div>
   );

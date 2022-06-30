@@ -1,6 +1,10 @@
 import "./App.css";
 import { AiOutlineSearch } from "react-icons/ai";
-function Header() {
+function Header({
+  setSearchTerm,
+}: {
+  setSearchTerm: (variable: string) => void;
+}) {
   return (
     <div className="header">
       <h2>
@@ -8,7 +12,17 @@ function Header() {
       </h2>
       <div className="search">
         <AiOutlineSearch className="searchicon" />
-        <input placeholder="Search" type={"search"}></input>
+        <input
+          onChange={(e) => {
+            if (e.target.value === "") {
+              setSearchTerm("avengers");
+            } else {
+              setSearchTerm(e.target.value);
+            }
+          }}
+          placeholder="Search"
+          type={"search"}
+        ></input>
       </div>
     </div>
   );
