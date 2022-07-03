@@ -114,10 +114,10 @@
 .Movies .movie{
   display: flex;
   flex-direction: column;
+  padding:10px;
+  text-align: center;  
 }
-.movie-body{
-  width: 100%;
-}
+
 .selected{
   margin-bottom: 440px;
   border: 1px solid #FFD600;
@@ -126,7 +126,7 @@
 .info{
   padding: 1% 4%;
   height: 400px;
-  margin-top: 1%;
+  margin-top: 2%;
   margin-bottom: 1%;
   width: 80vw;
   display: flex;  
@@ -153,4 +153,56 @@
   background-color: white;
   border-radius: 15px;
   border: none;
+}
+
+@media screen and (max-width: 1024px) {
+  .Movies{
+    grid-template-columns: auto auto  ;
+
+  }
+  .info .more-btn{
+    width: 15%;
+  }
+}
+@media screen and (max-width: 768px){
+  .Movies{
+    column-gap: 20px;
+  }
+ .App .container{
+   padding:15px;
+    width:100%
+  }
+  .info{
+    margin-top: 7%;
+    width:100%
+  }
+}
+@media screen and (max-width: 426px){
+  .info{
+    margin-top: 15%;
+    height: 500px;
+    width:400px
+  }
+  .Movies{
+    grid-template-columns: repeat(1,1fr) ;
+
+  }
+  .selected{
+    margin-bottom: 540px;
+    border: 1px solid #FFD600;
+  }
+  .header{
+    flex-direction: column;
+    align-items:center;
+    justify-content: center;
+  }
+  .header .search{
+    width:100%
+  }
+  .header input{
+    width: 100%;
+  }
+  .info .more-btn{
+    width: 25%;
+  }
 }
