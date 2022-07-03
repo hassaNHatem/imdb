@@ -1,7 +1,7 @@
 import axios from "axios";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import "./App.css";
 import Header from "./Header";
 import Movies from "./Movies";
@@ -16,17 +16,39 @@ function App() {
   const [page, setPage] = useState(1);
   const [recent, setRecent] = useState<Array<any>>([]);
   const [reviews, setReviews] = useState();
+  const [appHieght, setappHieght] = useState(window.innerHeight);
   const APIKEY = "5b9bd435";
+  const listInnerRef: any = useRef();
+
   const fetchData = async (searchword: string, page: number) => {
     setLoading(true);
     axios
       .get(
-        `https://www.omdbapi.com/?s=${searchword}&page=${page}&apiKey=${APIKEY}&type=${currentTab}`
+        `https://www.omdbapi.com/?s=${searchword}&page=${1}&apiKey=${APIKEY}&type=${currentTab}`
       )
       .then((res) => {
         setData(res.data.Search);
+
         setLoading(false);
       });
+  };
+  const onScroll = async () => {
+    if (listInnerRef.current) {
+      const { scrollTop, scrollHeight, clientHeight } = listInnerRef.current;
+      if (scrollTop + clientHeight === scrollHeight) {
+        setPage((page) => page + 1);
+        await axios
+          .get(
+            `https://www.omdbapi.com/?s=${searchTerm}&page=${page}&apiKey=${APIKEY}&type=${currentTab}`
+          )
+          .then((res) => {
+            if (res.data.Search !== undefined) {
+              let newdata: any = [...data, ...res.data.Search];
+              setData(newdata);
+            }
+          });
+      }
+    }
   };
   useEffect(() => {
     fetchData(searchTerm, page);
@@ -59,7 +81,7 @@ function App() {
         <Route
           path="/"
           element={
-            <div className="App">
+            <div className="App" onScroll={onScroll} ref={listInnerRef}>
               <div className="container">
                 <Header setSearchTerm={setSearchTerm}></Header>
                 <Recent></Recent>
@@ -76,6 +98,8 @@ function App() {
                     className={currentTab === "series" ? "active" : ""}
                     onClick={() => {
                       setCurrentTab("series");
+                      setPage(1);
+                      setData([]);
                     }}
                   >
                     Series

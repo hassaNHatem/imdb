@@ -24,14 +24,14 @@ function Movies({
   const [selectedMovie, setSelectedMovie] = useState(0);
   const [distance, setDistance] = useState(0);
   const [movieDetails, setMovieDetails] = useState<any>();
+  const [isShown, setisShown] = useState(true);
   useEffect(() => {
     let element: any = document.getElementsByClassName("selected");
+    let parent: any = document.getElementsByClassName("movies-container");
     if (element.length > 0) {
-      setDistance(
-        window.pageYOffset + element[0].getBoundingClientRect().top + 440
-      );
+      setDistance(300);
     }
-  }, [selectedMovie]);
+  }, [selectedMovie, distance]);
   const callGetMovieDetails = (id: number) => {
     axios
       .get(`https://www.omdbapi.com/?i=${id}&apiKey=5b9bd435`)
@@ -39,9 +39,8 @@ function Movies({
         setMovieDetails(res.data);
       });
   };
-  console.log(movieDetails);
   return (
-    <>
+    <div className="movies-container">
       {" "}
       <div className="Movies">
         {Movies !== undefined &&
@@ -53,6 +52,7 @@ function Movies({
                   onClick={() => {
                     callGetMovieDetails(el.imdbID);
                     setSelectedMovie(el.imdbID);
+                    setisShown(true);
                   }}
                   key={index}
                   className={`movie ${
@@ -69,6 +69,7 @@ function Movies({
       {Movies !== undefined &&
         movieDetails &&
         selectedMovie !== 0 &&
+        isShown &&
         Movies.map((el: any, index: number) => {
           return (
             selectedMovie === el.imdbID && (
@@ -76,8 +77,9 @@ function Movies({
                 key={index}
                 className="info"
                 style={{
-                  position: "absolute",
+                  position: "fixed",
                   top: distance,
+                  bottom: 0,
                   background: `linear-gradient(to bottom, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.5)) , url(${el.Poster})top center / cover no-repeat`,
                 }}
               >
@@ -101,22 +103,30 @@ function Movies({
                     <p>{movieDetails.Language}</p>
                   </div>
                 </div>
-                <Link to={"/More"}>
+                <div className="btns">
+                  <Link to={"/More"}>
+                    <button
+                      onClick={() => {
+                        setRecent(el);
+                        fetchReview(el.Title);
+                      }}
+                      className="more-btn"
+                    >
+                      More Info
+                    </button>
+                  </Link>
                   <button
-                    onClick={() => {
-                      setRecent(el);
-                      fetchReview(el.Title);
-                    }}
                     className="more-btn"
+                    onClick={() => setisShown(false)}
                   >
-                    More Info
+                    Close
                   </button>
-                </Link>
+                </div>
               </div>
             )
           );
         })}
-    </>
+    </div>
   );
 }
 

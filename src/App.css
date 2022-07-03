@@ -1,13 +1,15 @@
 *{
   margin: 0;
+  
   padding: 0;
   box-sizing: border-box;
 }
 .App {
+ height: 100vh;
+  overflow-y: auto;
   width:100%;
   background-color: black;
   color: white;
-  min-height: 100vh;
  
 }
 .App .container{
@@ -103,6 +105,7 @@
 }
 /*movies*/
 .Movies {
+
   min-height: 600px;
   background-color: black;
   margin-top: 2% !important;
@@ -120,7 +123,7 @@
 }
 
 .selected{
-  margin-bottom: 440px;
+  /* margin-bottom: 440px; */
   border: 1px solid #FFD600;
 }
 /*info section*/
@@ -149,12 +152,16 @@
   margin-bottom: 4%;
 }
 .info .more-btn{
-  width: 10%;
   padding: 15px 10px;
   background-color: white;
   border-radius: 15px;
   border: none;
 }
+.btns{
+  display: flex;
+  justify-content: space-between;
+}
+
 /*reviews*/
 .reviews{
   color:#FFFFFF;

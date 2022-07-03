@@ -1,6 +1,5 @@
 import "./App.css";
 function More({ reviews }: { reviews: any }) {
-  console.log(reviews);
   return (
     <>
       {" "}
