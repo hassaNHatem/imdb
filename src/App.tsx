@@ -15,6 +15,7 @@ function App() {
   const [searchTerm, setSearchTerm] = useState<string>("avengers");
   const [page, setPage] = useState(1);
   const [recent, setRecent] = useState<Array<any>>([]);
+  const [reviews, setReviews] = useState();
   const APIKEY = "5b9bd435";
   const fetchData = async (searchword: string, page: number) => {
     setLoading(true);
@@ -86,13 +87,17 @@ function App() {
                 ) : data === undefined ? (
                   <h1>no Data Found!</h1>
                 ) : (
-                  <Movies setRecent={setRec} Movies={data}></Movies>
+                  <Movies
+                    setRecent={setRec}
+                    setReviews={setReviews}
+                    Movies={data}
+                  ></Movies>
                 )}
               </div>
             </div>
           }
         />
-        <Route path="More" element={<More />} />
+        <Route path="More" element={<More reviews={reviews} />} />
       </Routes>
     </BrowserRouter>
   );

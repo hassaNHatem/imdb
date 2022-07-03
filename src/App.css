@@ -112,6 +112,7 @@
     
 }
 .Movies .movie{
+  width: 350px;
   display: flex;
   flex-direction: column;
   padding:10px;
@@ -153,6 +154,29 @@
   background-color: white;
   border-radius: 15px;
   border: none;
+}
+/*reviews*/
+.reviews{
+  color:#FFFFFF;
+  padding: 25px;
+  width: 50%;
+  margin: 0 auto;
+  text-align: center;
+}
+.reviews h1{
+  border-bottom: 1px solid #FFD600;
+  width: 100%;
+  margin-bottom: 3%;
+}
+.articles{
+  padding: 15px;
+  background-color: #FFD600;
+  border-radius: 18px;
+  margin-bottom: 3%;
+}
+.articles a{
+  text-decoration: none;
+  color: white;
 }
 
 @media screen and (max-width: 1024px) {
@@ -204,5 +228,8 @@
   }
   .info .more-btn{
     width: 25%;
+  }
+  .reviews{
+    width: 100%;
   }
 }

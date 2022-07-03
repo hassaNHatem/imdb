@@ -6,10 +6,21 @@ import "./App.css";
 function Movies({
   Movies,
   setRecent,
+  setReviews,
 }: {
   Movies: Array<any>;
+  setReviews: (el: any) => void;
   setRecent: (el: any) => void;
 }) {
+  const fetchReview = async (name: string) => {
+    await axios
+      .get(
+        `https://api.nytimes.com/svc/movies/v2/reviews/search.json?query=${name}&api-key=XmzV6DDJ8mWzfiiVpEJ6RtNBdh3NesL5`
+      )
+      .then((res) => {
+        setReviews(res.data);
+      });
+  };
   const [selectedMovie, setSelectedMovie] = useState(0);
   const [distance, setDistance] = useState(0);
   const [movieDetails, setMovieDetails] = useState<any>();
@@ -41,7 +52,6 @@ function Movies({
                 <div
                   onClick={() => {
                     callGetMovieDetails(el.imdbID);
-                    setRecent(el);
                     setSelectedMovie(el.imdbID);
                   }}
                   key={index}
@@ -49,7 +59,7 @@ function Movies({
                     el.imdbID === selectedMovie ? "selected" : ""
                   }`}
                 >
-                  <img width={350} height={400} src={el.Poster}></img>
+                  <img width={330} height={400} src={el.Poster}></img>
                   <h2>{el.Title}</h2>
                 </div>
               </>
@@ -92,7 +102,15 @@ function Movies({
                   </div>
                 </div>
                 <Link to={"/More"}>
-                  <button className="more-btn">More Info</button>
+                  <button
+                    onClick={() => {
+                      setRecent(el);
+                      fetchReview(el.Title);
+                    }}
+                    className="more-btn"
+                  >
+                    More Info
+                  </button>
                 </Link>
               </div>
             )
