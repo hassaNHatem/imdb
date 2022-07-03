@@ -4,6 +4,7 @@
   box-sizing: border-box;
 }
 .App {
+  width:100%;
   background-color: black;
   color: white;
   min-height: 100vh;
@@ -106,7 +107,7 @@
   background-color: black;
   margin-top: 2% !important;
     display: grid;
-    grid-template-columns: auto auto auto auto;
+    grid-template-columns: auto auto auto ;
     column-gap: 50px;
     
 }
@@ -130,7 +131,8 @@
   width: 80vw;
   display: flex;  
   flex-direction: column;
-  background-color: #FFD600;
+  border:1px solid #FFD600;
+  /* background-color: #FFD600; */
 }
 .info .title{
   font-size: 44px;
