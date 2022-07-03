@@ -1,9 +1,12 @@
 import axios from "axios";
+import ReactDOM from "react-dom/client";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { useEffect, useState } from "react";
 import "./App.css";
 import Header from "./Header";
 import Movies from "./Movies";
 import Recent from "./Recent";
+import More from "./More";
 
 function App() {
   const [currentTab, setCurrentTab] = useState("movie");
@@ -50,38 +53,48 @@ function App() {
   };
 
   return (
-    <div className="App">
-      <div className="container">
-        <Header setSearchTerm={setSearchTerm}></Header>
-        <Recent></Recent>
-        <div className="switching-tabs">
-          <span
-            className={currentTab === "movie" ? "active" : ""}
-            onClick={() => {
-              setCurrentTab("movie");
-            }}
-          >
-            Movies
-          </span>
-          <span
-            className={currentTab === "series" ? "active" : ""}
-            onClick={() => {
-              setCurrentTab("series");
-            }}
-          >
-            Series
-          </span>
-        </div>
+    <BrowserRouter>
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <div className="App">
+              <div className="container">
+                <Header setSearchTerm={setSearchTerm}></Header>
+                <Recent></Recent>
+                <div className="switching-tabs">
+                  <span
+                    className={currentTab === "movie" ? "active" : ""}
+                    onClick={() => {
+                      setCurrentTab("movie");
+                    }}
+                  >
+                    Movies
+                  </span>
+                  <span
+                    className={currentTab === "series" ? "active" : ""}
+                    onClick={() => {
+                      setCurrentTab("series");
+                    }}
+                  >
+                    Series
+                  </span>
+                </div>
 
-        {loading ? (
-          <h1>Loading your movies...</h1>
-        ) : data === undefined ? (
-          <h1>no Data Found!</h1>
-        ) : (
-          <Movies setRecent={setRec} Movies={data}></Movies>
-        )}
-      </div>
-    </div>
+                {loading ? (
+                  <h1>Loading your movies...</h1>
+                ) : data === undefined ? (
+                  <h1>no Data Found!</h1>
+                ) : (
+                  <Movies setRecent={setRec} Movies={data}></Movies>
+                )}
+              </div>
+            </div>
+          }
+        />
+        <Route path="More" element={<More />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 

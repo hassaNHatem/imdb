@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import "./App.css";
 
 function Movies({
@@ -89,7 +90,9 @@ function Movies({
                     <p>{movieDetails.Language}</p>
                   </div>
                 </div>
-                <button className="more-btn">More Info</button>
+                <Link to={"/More"}>
+                  <button className="more-btn">More Info</button>
+                </Link>
               </div>
             )
           );
