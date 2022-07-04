@@ -2,6 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "./App.css";
+import { movie } from "./types";
 
 function Movies({
   Movies,
@@ -26,8 +27,8 @@ function Movies({
   const [movieDetails, setMovieDetails] = useState<any>();
   const [isShown, setisShown] = useState(true);
   useEffect(() => {
-    let element: any = document.getElementsByClassName("selected");
-    let parent: any = document.getElementsByClassName("movies-container");
+    let element: HTMLCollectionOf<Element> =
+      document.getElementsByClassName("selected");
     if (element.length > 0) {
       setDistance(300);
     }
@@ -44,7 +45,7 @@ function Movies({
       {" "}
       <div className="Movies">
         {Movies !== undefined &&
-          Movies.map((el: any, index: number) => {
+          Movies.map((el: movie, index: number) => {
             return (
               <>
                 {" "}
@@ -70,7 +71,7 @@ function Movies({
         movieDetails &&
         selectedMovie !== 0 &&
         isShown &&
-        Movies.map((el: any, index: number) => {
+        Movies.map((el: movie, index: number) => {
           return (
             selectedMovie === el.imdbID && (
               <div

@@ -7,15 +7,16 @@ import Header from "./Header";
 import Movies from "./Movies";
 import Recent from "./Recent";
 import More from "./More";
+import { articles, movie } from "./types";
 
 function App() {
   const [currentTab, setCurrentTab] = useState("movie");
-  const [data, setData] = useState([]);
+  const [data, setData] = useState<Array<movie>>([]);
   const [loading, setLoading] = useState(false);
   const [searchTerm, setSearchTerm] = useState<string>("avengers");
   const [page, setPage] = useState(1);
-  const [recent, setRecent] = useState<Array<any>>([]);
-  const [reviews, setReviews] = useState();
+  const [recent, setRecent] = useState<Array<movie>>([]);
+  const [reviews, setReviews] = useState<articles | undefined>();
   const [appHieght, setappHieght] = useState(window.innerHeight);
   const APIKEY = "5b9bd435";
   const listInnerRef: any = useRef();
@@ -28,7 +29,7 @@ function App() {
       )
       .then((res) => {
         setData(res.data.Search);
-
+        console.log(res.data.Search);
         setLoading(false);
       });
   };
@@ -43,7 +44,7 @@ function App() {
           )
           .then((res) => {
             if (res.data.Search !== undefined) {
-              let newdata: any = [...data, ...res.data.Search];
+              let newdata: Array<movie> = [...data, ...res.data.Search];
               setData(newdata);
             }
           });
@@ -54,8 +55,8 @@ function App() {
     fetchData(searchTerm, page);
   }, [currentTab, searchTerm]);
 
-  const setRec = (movie: any) => {
-    const newRecent: Array<any> = [movie];
+  const setRec = (movie: movie) => {
+    const newRecent: Array<movie> = [movie];
     setRecent(newRecent);
     let local = localStorage.getItem("recent-views");
     let localConverted = [];

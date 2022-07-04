@@ -1,5 +1,7 @@
 import "./App.css";
-function More({ reviews }: { reviews: any }) {
+import { article, articles } from "./types";
+function More({ reviews }: { reviews: articles | undefined }) {
+  console.log(reviews);
   return (
     <>
       {" "}
@@ -7,7 +9,7 @@ function More({ reviews }: { reviews: any }) {
         <div className="reviews">
           <h1>Related Reviews</h1>
           {reviews.results !== null ? (
-            reviews.results.map((el: any, index: number) => {
+            reviews.results.map((el: article, index: number) => {
               return (
                 <div className="articles">
                   <h2>{el.headline}</h2>

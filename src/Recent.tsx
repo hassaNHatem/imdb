@@ -4,6 +4,7 @@ import { useState } from "react";
 import "swiper/css";
 
 import { Swiper, SwiperSlide } from "swiper/react";
+import { movie } from "./types";
 
 function Recent() {
   const [display, setDisplay] = useState(true);
@@ -25,7 +26,7 @@ function Recent() {
       </div>
       {display && (
         <Swiper spaceBetween={50} slidesPerView={4}>
-          {recentConerted.map((el: any, index: number) => {
+          {recentConerted.map((el: movie, index: number) => {
             return (
               <SwiperSlide>
                 <div key={index} className="movie">
