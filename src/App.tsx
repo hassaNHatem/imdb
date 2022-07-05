@@ -14,7 +14,7 @@ function App() {
   const [data, setData] = useState<Array<movie>>([]);
   const [loading, setLoading] = useState(false);
   const [searchTerm, setSearchTerm] = useState<string>("avengers");
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useState(2);
   const [recent, setRecent] = useState<Array<movie>>([]);
   const [reviews, setReviews] = useState<articles | undefined>();
   const [appHieght, setappHieght] = useState(window.innerHeight);
@@ -36,7 +36,8 @@ function App() {
   const onScroll = async () => {
     if (listInnerRef.current) {
       const { scrollTop, scrollHeight, clientHeight } = listInnerRef.current;
-      if (scrollTop + clientHeight === scrollHeight) {
+      if (scrollTop + clientHeight >= scrollHeight - 80) {
+        console.log("end");
         setPage((page) => page + 1);
         await axios
           .get(
@@ -91,6 +92,7 @@ function App() {
                     className={currentTab === "movie" ? "active" : ""}
                     onClick={() => {
                       setCurrentTab("movie");
+                      setPage(1);
                     }}
                   >
                     Movies
